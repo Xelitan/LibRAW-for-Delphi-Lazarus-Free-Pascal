@@ -46,3 +46,13 @@ Pretty much every camera raw format should work.
 - .rw2 (Panasonic/Leica)
 - .srw (Samsung)
 - .x3f (Sigma)
+
+
+## Linux (Debian, Ubuntu, Mint)
+
+1) apt install apt-file libraw-dev
+2) apt-file search libraw.so
+It will list you how your libraw.so files are named *exactly* and where they are
+3) Open RawImage.pas and edit "const LIB_RAW"
+4) Change the value of that const. Enter filename (excluding path) found in step 2
+5) Compile and run
