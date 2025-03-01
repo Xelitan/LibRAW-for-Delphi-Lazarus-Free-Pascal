@@ -5,8 +5,8 @@ unit RawImage;
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
 // Description:	Reader for Camera Raw images                                  //
-// Version:	0.1                                                           //
-// Date:	16-FEB-2025                                                   //
+// Version:	0.2                                                           //
+// Date:	1-MAR-2025                                                    //
 // License:     MIT                                                           //
 // Target:	Win64, Free Pascal, Delphi                                    //
 // Copyright:	(c) 2025 Xelitan.com.                                         //
@@ -64,6 +64,7 @@ type
     procedure SaveToStream(Stream: TStream); override;
     constructor Create; override;
     destructor Destroy; override;
+    function ToBitmap: TBitmap;
   end;
 
 implementation
@@ -118,7 +119,7 @@ begin
             P[4*x  ] := (SrcPtr + 2)^; // B
             P[4*x+1] := (SrcPtr + 0)^; // G
             P[4*x+2] := (SrcPtr + 1)^; // R
-            P[4*x+3] := 0;
+            P[4*x+3] := 255;
 
             Inc(SrcPtr, 3);
           end;
@@ -204,6 +205,11 @@ destructor TRawImage.Destroy;
 begin
   FBmp.Free;
   inherited Destroy;
+end;
+
+function TRawImage.ToBitmap: TBitmap;
+begin
+  Result := FBmp;
 end;
 
 initialization
